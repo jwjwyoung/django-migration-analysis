@@ -4,6 +4,7 @@ class VisitCall(ast.NodeVisitor):
     def visit_Call(self, node):
         functions = ['CreateModel', 'DeleteModel', 'RenameModel', 'AddField', 'RemoveField', 'AlterField', 'RenameField']
         func = node.func
+        print(ast.dump(node))
         # Call(expr func, expr* args, keyword* keywords)
         if type(func) == ast.Attribute:
             # Attribute(expr value, identifier attr, expr_context ctx) attr is used for function name
@@ -16,7 +17,7 @@ class VisitCall(ast.NodeVisitor):
                     v = arg.value
                     if(type(arg.value) == ast.Str):
                         v = arg.value.s
-                    print("{} {}".format(arg.arg, v))
+                    #print("{} {}".format(arg.arg, arg.value.value))
 file = "test.py"
 contents = open(file).read()
 tree = ast.parse(contents)
